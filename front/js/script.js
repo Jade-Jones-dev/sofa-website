@@ -7,39 +7,33 @@ fetch('http://localhost:3000/api/products')
     insertProducts(products)
 })
 
-// TODO get the existing element on the page where I can insert cards (section class items)
-
-
+// create card for each element for home page
 function insertProducts(products){
     const mainEl = document.getElementById("items");
    products.forEach((product) => {
-    		let cardEl = document.createElement("article");
+    //create the elements
+                let aEl = document.createElement("a")
+    		    let cardEl = document.createElement("article");
 				let imageEl = document.createElement("img");
 				let nameEl = document.createElement("h3");
-				let descriptionEl = document.createElement("div");
-
+				let descriptionEl = document.createElement("p");
+    // give classes
                 cardEl.className = "article";
-                cardEl.setAttribute('id', product._id)
                 nameEl.className = "ProductName";
-                imageEl.classList.add('img')
+                imageEl.classList.add('img');
                 descriptionEl.classname = "productDescription";
-
+    // set inner text and attributes
 				nameEl.innerText = `${product.name}`;
+                aEl.setAttribute("id", product._id);
 				imageEl.setAttribute('src', product.imageUrl);
                 imageEl.setAttribute("alt", product.altTxt);
 				descriptionEl.innerText = `${product.description}`;
-
+    // append the card and a tag to the main element
                 cardEl.append(imageEl, nameEl, descriptionEl);
-                mainEl.append(cardEl);
-
-                
-   });
+                aEl.append(cardEl)
+                mainEl.append(aEl);
+            });
 }
-// TODO iterate over the stuff
-// get the current element in the array
-// create a card and insert into homepage
-// take the info and append it to card
-// append card to section 
 
 
 
