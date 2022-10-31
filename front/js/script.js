@@ -24,7 +24,7 @@ function insertProducts(products){
                 descriptionEl.classname = "productDescription";
     // set inner text and attributes
 				nameEl.innerText = `${product.name}`;
-                aEl.setAttribute("id", product._id);
+                aEl.setAttribute("href", product._id);
 				imageEl.setAttribute('src', product.imageUrl);
                 imageEl.setAttribute("alt", product.altTxt);
 				descriptionEl.innerText = `${product.description}`;
@@ -34,6 +34,10 @@ function insertProducts(products){
                 mainEl.append(aEl);
             });
 }
+
+// next step on click load a product page?
+// how do i link the product
+// how do I fetch just one product
 
 
 
