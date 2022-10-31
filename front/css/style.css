@@ -175,7 +175,10 @@ main {
 	white-space: normal;
 }
 
-
+.card img{
+	height:200px;
+	width:300px;
+}
 
 
 /********/
