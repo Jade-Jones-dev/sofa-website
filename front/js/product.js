@@ -35,8 +35,35 @@ fetch("http://localhost:3000/api/products/" + value)
 
         dropdownEl.append(optionEl)
         });
+
+    addButton.addEventListener("click", () => {
+					formCheck();
+				});
     }
 
 // next steps- add event listener to button
+const addButton = document.getElementById('addToCart')
+const productQuantity = document.getElementById('quantity')
+
+
+
 // create function to check if options are available
-// add to the cart
+function formCheck() {
+    if ( productQuantity.value < 1 ){
+        alert('Please choose a quantity')
+    }
+
+    let colorsDropdown = document.getElementById('colors')
+    
+   if (colorsDropdown.value == ''){
+        alert('Please select a color')
+    }
+}
+
+//  display the product
+//// add an event listener
+// check whether quantity is valid
+// check whether yhere are products in local storage
+// if yes
+    //  does the selected product and color already exist? if yes add the color and quntity
+// if no create an array
