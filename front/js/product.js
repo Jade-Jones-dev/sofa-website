@@ -54,16 +54,25 @@ function formCheck() {
     }
 
     let colorsDropdown = document.getElementById('colors')
-    
+
    if (colorsDropdown.value == ''){
         alert('Please select a color')
     }
 }
 
-//  display the product
-//// add an event listener
-// check whether quantity is valid
-// check whether yhere are products in local storage
+//  display the product- done
+//// add an event listener - done
+// check whether quantity is valid - done
+// check whether color is valid - done
+
+
+// check whether yhere are products in local storage- need to read up on tthis https://blog.logrocket.com/localstorage-javascript-complete-guide/
 // if yes
     //  does the selected product and color already exist? if yes add the color and quntity
+    // if (localStorage.getItem("email") !== null) {
+	// 		console.log(`Email address exists`);
+	// 	} else {
+	// 		console.log(`Email address not found`);
+	// 	}
+    // https://attacomsian.com/blog/web-storage-api-local-storage-session-storage
 // if no create an array
