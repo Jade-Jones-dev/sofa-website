@@ -60,6 +60,14 @@ function formCheck() {
     }
 }
 
+function cartCheck(){
+    if (localStorage.getItem("product") !== null) {
+			console.log(`cart is available`);
+		} else {
+			console.log(`no cart details found`);
+		}
+}
+
 //  display the product- done
 //// add an event listener - done
 // check whether quantity is valid - done
