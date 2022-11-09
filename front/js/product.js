@@ -65,21 +65,37 @@ function formCheck() {
 
 //checking if there are previous details in local storage
 function cartCheck(product){
+    let cart = [];
     colorsDropdown = document.getElementById("colors");
     let productQuantity = document.getElementById('quantity')
     productTitle = document.getElementById("title");
     if (localStorage.getItem("cart") !== null) {
 			console.log(`cart is available`);
 		} else {
-			console.log( productTitle.value, colorsDropdown.value, productQuantity.value);
+			
+			let newProduct = [];
+			newProduct.push(
+				productTitle.value,
+				colorsDropdown.value,
+				productQuantity.value
+			);
+			cart.push(newProduct);
 		}
+        console.log(cart)
 }
 
 // function createCart(){
+//     colorsDropdown = document.getElementById("colors");
+// 	productQuantity = document.getElementById("quantity");
+// 	    productTitle = document.getElementById("title");
 //     let cart = {}
-//     let newCartItem = []
-//     newCartItem.push(product._id, product.color, productQuantity.value)
-//     cart.push(newCartItem)
+//     let newProduct = []
+//     newProduct.push(
+// 			productTitle.value,
+// 			colorsDropdown.value,
+// 			productQuantity.value
+// 		);
+//     cart.push(newProduct)
 // }
 
 
