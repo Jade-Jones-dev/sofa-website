@@ -66,6 +66,7 @@ function formCheck() {
 //checking if there are previous details in local storage
 function cartCheck(product){
     let cart = [];
+    let newProduct = [];
     colorsDropdown = document.getElementById("colors");
     let productQuantity = document.getElementById('quantity')
     productTitle = document.getElementById("title");
@@ -73,30 +74,18 @@ function cartCheck(product){
 			console.log(`cart is available`);
 		} else {
 			
-			let newProduct = [];
+			
 			newProduct.push(
 				productTitle.value,
 				colorsDropdown.value,
 				productQuantity.value
 			);
-			cart.push(newProduct);
+			window.localStorage.setItem('product', JSON.stringify(newProduct))
 		}
-        console.log(cart)
+        console.log(newProduct)
 }
 
-// function createCart(){
-//     colorsDropdown = document.getElementById("colors");
-// 	productQuantity = document.getElementById("quantity");
-// 	    productTitle = document.getElementById("title");
-//     let cart = {}
-//     let newProduct = []
-//     newProduct.push(
-// 			productTitle.value,
-// 			colorsDropdown.value,
-// 			productQuantity.value
-// 		);
-//     cart.push(newProduct)
-// }
+
 
 
 
@@ -113,4 +102,4 @@ function cartCheck(product){
 	// 		console.log(`Email address not found`);
 	// 	}
     // https://attacomsian.com/blog/web-storage-api-local-storage-session-storage
-// if no create an array
+// if no create an array - done, but how do I get it to push to local
