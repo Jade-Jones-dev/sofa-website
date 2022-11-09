@@ -4,6 +4,7 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 
 let value = params.id;
 console.log(value) 
+let product;
 
 //fetch data from the backend api
 fetch("http://localhost:3000/api/products/" + value)
@@ -20,8 +21,9 @@ fetch("http://localhost:3000/api/products/" + value)
     let productPrice = document.getElementById('price')
     let productDescription = document.getElementById('description')
 
-    productPrice.textContent = product.price
-    productTitle.textContent = product.name
+    productPrice.textContent = product.price;
+    productTitle.textContent = product.name;
+    productTitle.value = product._id
     productDescription.textContent = product.description
     productImage.innerHTML = `<img src=${product.imageUrl} alt=${product.altTxt}>`;
 
@@ -38,6 +40,7 @@ fetch("http://localhost:3000/api/products/" + value)
 
     addButton.addEventListener("click", () => {
 					formCheck();
+                    cartCheck()
 				});
     }
 
@@ -60,21 +63,32 @@ function formCheck() {
     }
 }
 
-function cartCheck(){
-    if (localStorage.getItem("product") !== null) {
+//checking if there are previous details in local storage
+function cartCheck(product){
+    colorsDropdown = document.getElementById("colors");
+    let productQuantity = document.getElementById('quantity')
+    productTitle = document.getElementById("title");
+    if (localStorage.getItem("cart") !== null) {
 			console.log(`cart is available`);
 		} else {
-			console.log(`no cart details found`);
+			console.log( productTitle.value, colorsDropdown.value, productQuantity.value);
 		}
 }
+
+// function createCart(){
+//     let cart = {}
+//     let newCartItem = []
+//     newCartItem.push(product._id, product.color, productQuantity.value)
+//     cart.push(newCartItem)
+// }
+
+
 
 //  display the product- done
 //// add an event listener - done
 // check whether quantity is valid - done
 // check whether color is valid - done
-
-
-// check whether yhere are products in local storage- need to read up on tthis https://blog.logrocket.com/localstorage-javascript-complete-guide/
+// check whether yhere are products in local storage- need to read up on tthis https://blog.logrocket.com/localstorage-javascript-complete-guide/ - done
 // if yes
     //  does the selected product and color already exist? if yes add the color and quntity
     // if (localStorage.getItem("email") !== null) {
