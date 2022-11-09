@@ -52,38 +52,35 @@ const productQuantity = document.getElementById('quantity')
 
 // create function to check if options are available
 function formCheck() {
+    let colorsDropdown = document.getElementById('colors')
     if ( productQuantity.value < 1 ){
         alert('Please choose a quantity')
     }
-
-    let colorsDropdown = document.getElementById('colors')
-
-   if (colorsDropdown.value == ''){
+    if (colorsDropdown.value == ''){
         alert('Please select a color')
     }
 }
 
-//checking if there are previous details in local storage
+//checking if there are previous details in local storage if not add teh product to local storage
 function cartCheck(product){
-    let cart = [];
+    
     let newProduct = [];
     colorsDropdown = document.getElementById("colors");
     let productQuantity = document.getElementById('quantity')
     productTitle = document.getElementById("title");
-    if (localStorage.getItem("cart") !== null) {
-			console.log(`cart is available`);
+    if (localStorage.getItem("product") !== null) {
+			console.log(localStorage);
 		} else {
-			
-			
-			newProduct.push(
-				productTitle.value,
-				colorsDropdown.value,
-				productQuantity.value
+		newProduct.push(
+            productTitle.value,
+			colorsDropdown.value,
+			productQuantity.value
 			);
 			window.localStorage.setItem('product', JSON.stringify(newProduct))
 		}
-        console.log(newProduct)
 }
+
+// next step how to check if the items in local storage already contain the product I am trying to add?
 
 
 
@@ -96,10 +93,5 @@ function cartCheck(product){
 // check whether yhere are products in local storage- need to read up on tthis https://blog.logrocket.com/localstorage-javascript-complete-guide/ - done
 // if yes
     //  does the selected product and color already exist? if yes add the color and quntity
-    // if (localStorage.getItem("email") !== null) {
-	// 		console.log(`Email address exists`);
-	// 	} else {
-	// 		console.log(`Email address not found`);
-	// 	}
     // https://attacomsian.com/blog/web-storage-api-local-storage-session-storage
-// if no create an array - done, but how do I get it to push to local
+// if no create an array - done
