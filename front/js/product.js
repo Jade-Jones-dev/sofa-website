@@ -79,7 +79,7 @@ function cartCheck(product){
 			window.localStorage.setItem('product', JSON.stringify(newProduct))
 		}
 }
-
+// maybe I should create a cart and add the products to the cart? I need cart in next page
 // next step how to check if the items in local storage already contain the product I am trying to add?
 
 
