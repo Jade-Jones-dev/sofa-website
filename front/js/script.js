@@ -35,10 +35,6 @@ function insertProducts(products){
     });
 }
 
-// next step on click load a product page?
-// how do i link the product
-// how do I fetch just one product
-// add the links in product pages
 
 
 
