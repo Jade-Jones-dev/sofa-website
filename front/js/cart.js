@@ -25,6 +25,19 @@ function buildCompleteList(allProducts){
         let nameEl = document.createElement('h2');
         let colorEl = document.createElement("p");
         let priceEl = document.createElement("p");
+
+        articleEl.className = 'cart__item';
+        imageEl.className = "cart__item__img";
+        cartEl.className = "cart__item__content";
+        cartDivEl.className = "cart__item__content__description";
+
+
+
+        // check if i need this
+
+        // let cartElContent = document.createElement('div');
+        // let cartElContentQuantity = document.createElement("div");
+        // let cartPEl = document.createElement("p");
     });
     return list
 }
@@ -44,6 +57,8 @@ function buildCompleteList(allProducts){
                   created up to here
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
+
+
                       <p>Quantity : </p>
                       <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
                     </div>
