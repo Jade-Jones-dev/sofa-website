@@ -52,7 +52,7 @@ function buildCompleteList(allProducts){
         // let cartElContentQuantity = document.createElement("div");
         // let cartPEl = document.createElement("p");
     });
-    return list
+    console.log(list)
 }
 
 /*
