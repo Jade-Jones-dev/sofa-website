@@ -33,7 +33,8 @@ function buildCompleteList(allProducts){
         cartEl.className = "cart__item__content";
         cartDivEl.className = "cart__item__content__description";
 
-        imageEl.innerHTML = `<img src=${product.imageUrl} alt=${product.altTxt}>`;
+        imageEl.setAttribute("src", product.imageUrl);
+				imageEl.setAttribute("alt", product.altTxt);
         nameEl.innerText = product.name
         colorEl.innertext = product.color
         priceEl.innerText = product.price
