@@ -18,6 +18,8 @@ function buildCompleteList(allProducts){
         item.qty = product.qty;
         list.push(item)
 
+        let addEl = document.getElementById("cart__items");
+
         let articleEl = document.createElement('article')
         let imageEl = document.createElement('div')
         let cartEl = document.createElement('div')
@@ -30,6 +32,16 @@ function buildCompleteList(allProducts){
         imageEl.className = "cart__item__img";
         cartEl.className = "cart__item__content";
         cartDivEl.className = "cart__item__content__description";
+
+        imageEl.innerHTML = `<img src=${product.imageUrl} alt=${product.altTxt}>`;
+        nameEl.innerText = product.name
+        colorEl.innertext = product.color
+        priceEl.innerText = product.price
+
+        cartDivEl.append(nameEl, colorEl, priceEl)
+        cartEl.append(cartDivEl)
+        articleEl.append(imageEl, cartDivEl)
+        addEl.append(cartEl)
 
 
 
