@@ -5,44 +5,22 @@ fetch('http://localhost:3000/api/products')
     return data.json();
 })
 .then(allProducts => {
-    const products = buildCompleteList(allProducts)
-    console.log(products)
+    const cart = JSON.parse(localStorage.getItem("products"));
+    const products = buildCompleteList(cart, allProducts)
+    
 })
 // insert the elements on the page
-function buildCompleteList(allProducts){
-    const cart = JSON.parse(localStorage.getItem('products'));
+function buildCompleteList(cart, Allproducts){
+    
     const list = [];
     cart.forEach(product => {
-        const item = allProducts.find(a => a._id === product.id);
+        const item = Allproducts.find(a => a._id === product.id);
         item.color = product.color;
         item.qty = product.qty;
         list.push(item)
 
-        let addEl = document.getElementById("cart__items");
+        })
 
-        let articleEl = document.createElement('article')
-        let imageEl = document.createElement('div')
-        let cartEl = document.createElement('div')
-        let cartDivEl = document.createElement('div')
-        let nameEl = document.createElement('h2');
-        let colorEl = document.createElement("p");
-        let priceEl = document.createElement("p");
-
-        articleEl.className = 'cart__item';
-        imageEl.className = "cart__item__img";
-        cartEl.className = "cart__item__content";
-        cartDivEl.className = "cart__item__content__description";
-
-        imageEl.setAttribute("src", product.imageUrl);
-				imageEl.setAttribute("alt", product.altTxt);
-        nameEl.innerText = product.name
-        colorEl.innertext = product.color
-        priceEl.innerText = product.price
-
-        cartDivEl.append(nameEl, colorEl, priceEl)
-        cartEl.append(cartDivEl)
-        articleEl.append(imageEl, cartDivEl)
-        addEl.append(cartEl)
 
 
 
@@ -51,7 +29,7 @@ function buildCompleteList(allProducts){
         // let cartElContent = document.createElement('div');
         // let cartElContentQuantity = document.createElement("div");
         // let cartPEl = document.createElement("p");
-    });
+   
     console.log(list)
 }
 
