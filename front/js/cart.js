@@ -1,4 +1,5 @@
 const cartItems = document.getElementById("cart__items");
+const list = [];
 //fetch data from the backend api
 fetch('http://localhost:3000/api/products')
 .then(data => {
@@ -6,21 +7,47 @@ fetch('http://localhost:3000/api/products')
 })
 .then(allProducts => {
     const cart = JSON.parse(localStorage.getItem("products"));
-    const products = buildCompleteList(cart, allProducts)
+    const products = buildCompleteList(cart, allProducts);
     
 })
 // insert the elements on the page
 function buildCompleteList(cart, Allproducts){
-    
-    const list = [];
     cart.forEach(product => {
         const item = Allproducts.find(a => a._id === product.id);
         item.color = product.color;
         item.qty = product.qty;
         list.push(item)
+        })   
+    console.log(list);
+    
+}
 
-        })
+/*
+        let addEl = document.getElementById("cart__items");
 
+        let articleEl = document.createElement('article')
+        let imageEl = document.createElement('div')
+        let cartEl = document.createElement('div')
+        let cartDivEl = document.createElement('div')
+        let nameEl = document.createElement('h2');
+        let colorEl = document.createElement("p");
+        let priceEl = document.createElement("p");
+
+        articleEl.className = 'cart__item';
+        imageEl.className = "cart__item__img";
+        cartEl.className = "cart__item__content";
+        cartDivEl.className = "cart__item__content__description";
+
+        imageEl.setAttribute("src", product.imageUrl);
+				imageEl.setAttribute("alt", product.altTxt);
+        nameEl.innerText = product.name
+        colorEl.innertext = product.color
+        priceEl.innerText = product.price
+
+        cartDivEl.append(nameEl, colorEl, priceEl)
+        cartEl.append(cartDivEl)
+        articleEl.append(imageEl, cartDivEl)
+        addEl.append(cartEl)
 
 
 
@@ -29,9 +56,8 @@ function buildCompleteList(cart, Allproducts){
         // let cartElContent = document.createElement('div');
         // let cartElContentQuantity = document.createElement("div");
         // let cartPEl = document.createElement("p");
-   
-    console.log(list)
-}
+
+*/
 
 /*
              <!--  <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
