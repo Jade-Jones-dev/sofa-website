@@ -89,16 +89,18 @@ function createCartItems(list){
       location.reload()
     })
 // event listener for quantity
-    // // not working for udpdating quantity
-    // itemQuantityEl.addEventListener('change', () =>{
-    //   const cartItemsListQuantity = JSON.parse(localStorage.getItem("products"));
-    //   for(let product of cartItemsListQuantity){
-    //     if (product.id === product._id){
-    //       product.qty = itemQuantity.value
-    //     }
-    //   }
-    //   localStorage.setItem('products', JSON.stringify(cartItemsListQuantity))
-    // })
+    itemQuantityEl.addEventListener('change', () =>{
+      const cartItemsListQuantity = JSON.parse(localStorage.getItem("products"));
+      for(let item of cartItemsListQuantity){
+        if (product._id === item.id){
+          item.qty = itemQuantityEl.value
+        }
+      }
+      localStorage.setItem('products', JSON.stringify(cartItemsListQuantity))
+      calculateTotal(list);
+			calculateTotalQuantity(list);
+			location.reload();
+    })
 	})
 }
 
