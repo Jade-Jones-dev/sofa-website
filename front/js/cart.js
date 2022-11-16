@@ -77,6 +77,10 @@ function createCartItems(list){
 		cartEl.append(cartDivEl);
 		articleEl.append(imageDivEl, cartEl);
 		cartItems.append(articleEl); 
+
+    deleteItemEl.addEventListener('click' ,() => {
+      deleteItemEl.closest('article').remove()
+    })
 	})
 }
 
