@@ -20,7 +20,9 @@ function buildCompleteList(cart, Allproducts){
         list.push(item)
         })   
     console.log(list);
-    createCartItems(list); 
+    createCartItems(list);
+    calculateTotal(list);
+    calculateTotalQuantity(list);
    
 }
 
@@ -61,9 +63,10 @@ function createCartItems(list){
 		priceEl.innerText = `€${product.price}`;
 		cartPEl.innerHTML = `Quantity : `;
     deleteItemEl.innerHTML = `Delete`;
+    itemQuantityEl.setAttribute('type', "number")
     itemQuantityEl.setAttribute('value', product.qty);
-    itemQuantityEl.setAttribute('min', 1)
-    itemQuantityEl.setAttribute('max', 100)
+    itemQuantityEl.setAttribute('min', 1);
+    itemQuantityEl.setAttribute('max', 100);
 
 
     deleteEl.append(deleteItemEl)
@@ -73,56 +76,31 @@ function createCartItems(list){
     imageDivEl.append(imageEl)
 		cartEl.append(cartDivEl);
 		articleEl.append(imageDivEl, cartEl);
-		cartItems.append(articleEl);
-
-		// check if i need this
-
-		
-
-    
+		cartItems.append(articleEl); 
 	})
 }
 
-{/* <div class="cart__item__content__settings"> done
-                    <div class="cart__item__content__settings__quantity"> done
-                      <p>Quantity : </p> done
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
-                    </div>
-                    <div class="cart__item__content__settings__delete">
-                      <p class="deleteItem">Delete</p>
-                    </div>
-                  </div> */}
 
 
-/*
-             <!--  <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
-                <div class="cart__item__img">
-                  <img src="../images/product01.jpg" alt="Photo of a sofa">
-                </div>
-                <div class="cart__item__content">
-                  <div class="cart__item__content__description">
-                    <h2>Name of the product</h2>
-                    <p>Green</p>
-                    <p>€42.00</p>
-                  </div>
+function calculateTotal(list){
+  let total = 0
+  list.forEach(product => {
+    total += (product.price * product.qty)
+  })
+    const totalPriceEl = document.getElementById('totalPrice')
+    totalPriceEl.innerHTML = total
+}
 
-                  created up to here
-                  <div class="cart__item__content__settings">
-                    <div class="cart__item__content__settings__quantity">
-
-
-                      <p>Quantity : </p>
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
-                    </div>
-                    <div class="cart__item__content__settings__delete">
-                      <p class="deleteItem">Delete</p>
-                    </div>
-                  </div>
-                </div>
-              </article> -->
-
-*/
+function calculateTotalQuantity(list){
+  let totalQuantity = 0
+  list.forEach(product =>{
+    totalQuantity += product.qty
+  })
+  const totalQuantityEl = document.getElementById("totalQuantity");
+  totalQuantityEl.innerHTML = totalQuantity
+}
 // steps for step 9
+// display the total
 // add event listener to delte button
 // add event listener to edit the quantity
 
