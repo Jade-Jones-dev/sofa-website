@@ -80,9 +80,29 @@ function createCartItems(list){
 
     deleteItemEl.addEventListener('click' ,() => {
       deleteItemEl.closest('article').remove()
+      const cartItemsList = JSON.parse(localStorage.getItem("products"));
+      let deletedItems = cartItemsList.filter(item => item.id != product._id && item.color != product.color)
+      // it is still deleting item color
+      localStorage.setItem('products', JSON.stringify(deletedItems))
+      calculateTotal(list);
+      calculateTotalQuantity(list);
+     location.reload()
     })
+
+    // // not working for udpdating quantity
+    // itemQuantityEl.addEventListener('change', () =>{
+    //   const cartItemsListQuantity = JSON.parse(localStorage.getItem("products"));
+    //   for(let product of cartItemsListQuantity){
+    //     if (product.id === product._id){
+    //       product.qty = itemQuantity.value
+    //     }
+    //   }
+    //   localStorage.setItem('products', JSON.stringify(cartItemsListQuantity))
+    // })
 	})
 }
+
+
 
 
 
@@ -103,6 +123,8 @@ function calculateTotalQuantity(list){
   const totalQuantityEl = document.getElementById("totalQuantity");
   totalQuantityEl.innerHTML = totalQuantity
 }
+
+
 // steps for step 9
 // display the total
 // add event listener to delte button
