@@ -26,7 +26,7 @@ function buildCompleteList(cart, Allproducts){
    
 }
 
- 
+// appends the products to the page
 function createCartItems(list){
   list.forEach((product) => {
 		let articleEl = document.createElement("article");
@@ -68,7 +68,6 @@ function createCartItems(list){
     itemQuantityEl.setAttribute('min', 1);
     itemQuantityEl.setAttribute('max', 100);
 
-
     deleteEl.append(deleteItemEl)
     cartElContentQuantity.append(cartPEl, itemQuantityEl)
     cartElContent.append(cartElContentQuantity, deleteEl);
@@ -78,17 +77,18 @@ function createCartItems(list){
 		articleEl.append(imageDivEl, cartEl);
 		cartItems.append(articleEl); 
 
+// event listener for delete button
     deleteItemEl.addEventListener('click' ,() => {
       deleteItemEl.closest('article').remove()
       const cartItemsList = JSON.parse(localStorage.getItem("products"));
       let deletedItems = cartItemsList.filter(item => item.id != product._id && item.color != product.color)
-      // it is still deleting item color
+      // it is still deleting item color?? whats wrong with my logic
       localStorage.setItem('products', JSON.stringify(deletedItems))
       calculateTotal(list);
       calculateTotalQuantity(list);
-     location.reload()
+      location.reload()
     })
-
+// event listener for quantity
     // // not working for udpdating quantity
     // itemQuantityEl.addEventListener('change', () =>{
     //   const cartItemsListQuantity = JSON.parse(localStorage.getItem("products"));
@@ -102,10 +102,7 @@ function createCartItems(list){
 	})
 }
 
-
-
-
-
+// calculates the total price
 function calculateTotal(list){
   let total = 0
   list.forEach(product => {
@@ -115,6 +112,7 @@ function calculateTotal(list){
     totalPriceEl.innerHTML = total
 }
 
+// calculates the number of items in the order
 function calculateTotalQuantity(list){
   let totalQuantity = 0
   list.forEach(product =>{
@@ -126,8 +124,6 @@ function calculateTotalQuantity(list){
 
 
 // steps for step 9
-// display the total
-// add event listener to delte button
 // add event listener to edit the quantity
 
 // steps for step 10
