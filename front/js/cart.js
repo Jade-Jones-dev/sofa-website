@@ -124,10 +124,3 @@ function calculateTotalQuantity(list){
   totalQuantityEl.innerHTML = totalQuantity
 }
 
-
-// steps for step 9
-// add event listener to edit the quantity
-
-// steps for step 10
-// chreck details entered by user
-// display an error message if necessary
