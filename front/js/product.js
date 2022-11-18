@@ -17,7 +17,7 @@ function display(product) {
 	let productPrice = document.getElementById("price");
 	let productDescription = document.getElementById("description");
 
-	productPrice.textContent = product.price;
+	productPrice.textContent = price(product.price);
 	productTitle.textContent = product.name;
 	productTitle.value = product._id;
 	productDescription.textContent = product.description;
@@ -50,37 +50,33 @@ function ListenForCartAddition(product) {
 			return;
 		}
 		//check if cart is empty
-		const isCartEmpty = !localStorage.getItem("products");
+		const isCartEmpty = !has("products");
 
 		if (isCartEmpty) {
 			const products = [{ id: product._id, color: color, qty: Number(qty) }];
 
-			localStorage.setItem("products", JSON.stringify(products));
-			alert(
-				"Your product has been added to your basket. Now redirecting you to the home page"
-			);
+			store("products", products);
+			alert("Your product has been added to your basket. Now redirecting you to the home page");
 			location.href = "index.html";
 			return;
 		}
 
-		const products = JSON.parse(localStorage.getItem("products"));
+		const products = get("products");
 		const existingProduct = products.find(
 			(a) => a.id === getID() && a.color === color
 		);
 		if (existingProduct) {
 			existingProduct.qty = Number(existingProduct.qty) + Number(qty);
-			localStorage.setItem("products", JSON.stringify(products));
-			alert(
-				`Your product has been added to your basket. Now redirecting to home page`
-			);
+			store("products", products);
+			alert(`Your product has been added to your basket. Now redirecting to home page`);
+			location.href = "index.html";
 			return;
 		}
 
 		products.push({ id: product._id, color: color, qty: Number(qty) });
-		localStorage.setItem("products", JSON.stringify(products));
-		alert(
-			`Your product has been added to your basket. Now redirecting to home page`
-		);
+		store("products", products);
+		alert(`Your product has been added to your basket. Now redirecting to home page`);
+		location.href = "index.html";
 		return;
 	});
 }

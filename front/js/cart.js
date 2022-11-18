@@ -1,33 +1,76 @@
-const cartItems = document.getElementById("cart__items");
-const list = [];
 //fetch data from the backend api
 fetch('http://localhost:3000/api/products')
 .then(data => {
     return data.json();
 })
-.then(allProducts => {
-    const cart = JSON.parse(localStorage.getItem("products"));
-    const products = buildCompleteList(cart, allProducts);
-    // console.log(products);
-     
+.then(async (allProducts) => {
+  const cart = get("products");
+  const products = buildCompleteList(cart, allProducts);
+  console.log(products)
+  await createCartItems(products);
+  calculateTotal(products);
+  calculateTotalQuantity(products);
+  listenForQtyChange(products)
+  listenForDeletion(products)     
 })
+
+function listenForDeletion(products)
+{
+  products.forEach(product =>
+  {
+    const el = document.querySelector(`.cart__item[data-id="${product._id}"][data-color="${product.color}"] .deleteItem`);
+    el.addEventListener('click', () =>
+    {
+      const products = get("products");
+      const index = products.findIndex(a => a.id == product._id && a.color == product.color);
+      products.splice(index, 1); 
+      store('products', products)
+      location.reload()
+    })
+  })
+}
+
+function listenForQtyChange(products)
+{
+  products.forEach(product =>
+  {
+    const el = document.querySelector(`.cart__item[data-id="${product._id}"][data-color="${product.color}"] .itemQuantity`);
+    el.addEventListener('input', (e) =>
+    {
+      const newQty = e.target.value
+      const products = get("products");
+      const a = products.find(a => a.id == product._id && a.color == product.color);
+      a.qty = Number(newQty);
+      store('products', products)
+      location.reload()
+    })
+  })  
+
+}
+
 // insert the elements on the page
-function buildCompleteList(cart, Allproducts){
-    cart.forEach(product => {
-        const item = Allproducts.find(a => a._id === product.id);
-        item.color = product.color;
-        item.qty = product.qty;
-        list.push(item)
-        })   
-    console.log(list);
-    createCartItems(list);
-    calculateTotal(list);
-    calculateTotalQuantity(list);
-   
+function buildCompleteList(cart, allproducts)
+{
+  const list = [];
+
+  cart.forEach(product => {
+    const item = allproducts.find(a => a._id === product.id);
+    const a = { ...item };
+
+    a.color = product.color;
+    a.qty = product.qty;
+    
+    list.push(a)
+  })   
+  
+  return list;
 }
 
 // appends the products to the page
-function createCartItems(list){
+function createCartItems(list)
+{
+  const cartItems = document.getElementById("cart__items");
+
   list.forEach((product) => {
 		let articleEl = document.createElement("article");
 		let imageDivEl = document.createElement("div");
@@ -51,6 +94,7 @@ function createCartItems(list){
     cartElContent.className = "cart__item__content__settings";
 		cartElContentQuantity.className = "cart__item__content__settings__quantity";
     deleteEl.className = "cart__item__content__settings__delete";
+    deleteItemEl.className = "deleteItem";
     itemQuantityEl.className = "itemQuantity";
     itemQuantityEl.name = 'itemQuantity'
 
@@ -60,7 +104,7 @@ function createCartItems(list){
 		articleEl.setAttribute("data-color", product.color);
 		nameEl.innerText = product.name;
 		colorEl.innerHTML = product.color;
-		priceEl.innerText = `€${product.price}`;
+		priceEl.innerText = `${price(product.price)}`;
 		cartPEl.innerHTML = `Quantity : `;
     deleteItemEl.innerHTML = `Delete`;
     itemQuantityEl.setAttribute('type', "number")
@@ -76,31 +120,6 @@ function createCartItems(list){
 		cartEl.append(cartDivEl);
 		articleEl.append(imageDivEl, cartEl);
 		cartItems.append(articleEl); 
-
-// event listener for delete button
-    deleteItemEl.addEventListener('click' ,() => {
-      deleteItemEl.closest('article').remove()
-      const cartItemsList = JSON.parse(localStorage.getItem("products"));
-      let deletedItems = cartItemsList.filter(item => item.id != product._id && item.color != product.color)
-      // it is still deleting item color?? whats wrong with my logic
-      localStorage.setItem('products', JSON.stringify(deletedItems))
-      calculateTotal(list);
-      calculateTotalQuantity(list);
-      location.reload()
-    })
-// event listener for quantity
-    itemQuantityEl.addEventListener('change', () =>{
-      const cartItemsListQuantity = JSON.parse(localStorage.getItem("products"));
-      for(let item of cartItemsListQuantity){
-        if (product._id === item.id){
-          item.qty = itemQuantityEl.value
-        }
-      }
-      localStorage.setItem('products', JSON.stringify(cartItemsListQuantity))
-      calculateTotal(list);
-			calculateTotalQuantity(list);
-			location.reload();
-    })
 	})
 }
 
@@ -111,7 +130,7 @@ function calculateTotal(list){
     total += (product.price * product.qty)
   })
     const totalPriceEl = document.getElementById('totalPrice')
-    totalPriceEl.innerHTML = total
+    totalPriceEl.innerHTML = price(total)
 }
 
 // calculates the number of items in the order
@@ -123,4 +142,5 @@ function calculateTotalQuantity(list){
   const totalQuantityEl = document.getElementById("totalQuantity");
   totalQuantityEl.innerHTML = totalQuantity
 }
+
 
