@@ -143,4 +143,29 @@ function calculateTotalQuantity(list){
   totalQuantityEl.innerHTML = totalQuantity
 }
 
+// create a function to check the data entered by user and display an error message
+// details for email regx type="text" pattern=".+@.+\..+" 
+
+// create a contact object from the info and the products
+// send to the back end this stage is then done
+
+/*
+Collect and analyse the data entered by the user.
+● Display an error message if necessary (such as if a user writes
+“hello” in the email field).
+● Create a contact object (based on the data from the form) and a
+product table.
+
+Issues to be aware of:
+● Make sure you closely check the data entered by the user
+● When using regex to check the data make sure that you have carried
+out tests to ensure that regex is working properly
+● Don’t forget to display an error message if necessary
+Resources:
+● Communicating with a web service via an API - How to Make a GET Request end POST Request in Javascript.
+● This article on Regex should help you better understand how to check the data entered by a user. Regex can sometimes be difficult to write so feel free to research how to do this (e.g. “regular expressions javascript email”).
+● You could take a look at the functional and technical specifications for the project to learn how to send a request to the API.
+
+*/
+
 
