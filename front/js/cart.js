@@ -1,3 +1,10 @@
+const firstNameEl = document.getElementById("firstName");
+const lastNameEl = document.getElementById("lastName");
+const addressEl = document.getElementById("address");
+const cityEl = document.getElementById("city");
+const emailEl = document.getElementById("email");
+const orderEl = document.getElementById("order");
+
 //fetch data from the backend api
 fetch("http://localhost:3000/api/products")
 	.then((data) => {
@@ -142,64 +149,73 @@ function calculateTotalQuantity(list) {
 	totalQuantityEl.innerHTML = totalQuantity;
 }
 
-checkUserInput()
-function checkUserInput(){
-	let firstNameEl = document.getElementById("firstName");
-	let lastNameEl = document.getElementById("lastName");
-	let addressEl = document.getElementById("address");
-	let cityEl = document.getElementById("city");
-	let emailEl = document.getElementById("email");
-	let orderEl = document.getElementById("order");
-
+checkUserInput();
+function checkUserInput() {
 	let firstNameErrorEl = document.getElementById("firstNameErrorMsg");
 	let lastNameErrorEl = document.getElementById("lastNameErrorMsg");
 	let addressErrorEl = document.getElementById("addressErrorMsg");
 	let cityErrorEl = document.getElementById("cityErrorMsg");
 	let emailErrorEl = document.getElementById("emailErrorMsg");
 
-  	firstNameEl.addEventListener("input", ($event) => {
-			if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-				firstNameErrorEl.innerText = "First name must be between 3 and 10 characters";
-			} else {
-				firstNameErrorEl.innerText = "";
-			}
-		});
-		// check name
-		lastNameEl.addEventListener("input", ($event) => {
-			if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-				lastNameErrorEl.innerText = "Last name must be between 3 and 10 characters";
-			} else {
-				lastNameErrorEl.innerText = "";
-			}
-		});
+	firstNameEl.addEventListener("input", ($event) => {
+		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
+			firstNameErrorEl.innerText =
+				"First name must be between 3 and 10 characters";
+		} else {
+			firstNameErrorEl.innerText = "";
+		}
+	});
+	// check name
+	lastNameEl.addEventListener("input", ($event) => {
+		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
+			lastNameErrorEl.innerText =
+				"Last name must be between 3 and 10 characters";
+		} else {
+			lastNameErrorEl.innerText = "";
+		}
+	});
 
-		//check address
-		addressEl.addEventListener("input", ($event) => {
-			let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-			if ($event.target.value.match(regex)) {
-				addressErrorEl.innerText = "";
-			} else {
-				addressErrorEl.innerText = " please include letters and numbers";
-			}
-		});
-		// check city
-		cityEl.addEventListener("input", ($event) => {
-			if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-				cityErrorEl.innerText = "City must be between 3 and 10 characters";
-			} else {
-				cityErrorEl.innerText = "";
-        return true
-			}
-		});
+	//check address
+	addressEl.addEventListener("input", ($event) => {
+		let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+		if ($event.target.value.match(regex)) {
+			addressErrorEl.innerText = "";
+		} else {
+			addressErrorEl.innerText = " please include letters and numbers";
+		}
+	});
+	// check city
+	cityEl.addEventListener("input", ($event) => {
+		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
+			cityErrorEl.innerText = "City must be between 3 and 10 characters";
+		} else {
+			cityErrorEl.innerText = "";
+		}
+	});
 
-		// check email
-		emailEl.addEventListener("input", ($event) => {
-			let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-			if ($event.target.value.match(regex)) {
-				emailErrorEl.innerText = "";
-			} else {
-				emailErrorEl.innerText = " please enter a valid email address";
-			}
-		});
+	// check email
+	emailEl.addEventListener("input", ($event) => {
+		let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if ($event.target.value.match(regex)) {
+			emailErrorEl.innerText = "";
+		} else {
+			emailErrorEl.innerText = " please enter a valid email address";
+		}
+	});
 
+	orderEl.addEventListener("click", ($event)=> {
+    $event.preventDefault();
+    if (
+			firstNameEl.value  &&
+			lastNameEl.value  &&
+			firstNameEl.value &&
+			addressEl.value  &&
+			cityEl.value  &&
+			emailEl.value 
+		) {
+			console.log("yes");
+		} else {
+			console.log("no");
+		}
+  })
 }
