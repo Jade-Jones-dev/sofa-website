@@ -214,11 +214,28 @@ function checkUserInput(){
         address:addressEl.value,
         city:cityEl.value,
         email:emailEl.value,
+        // how to add products
       }
     })
 
     function makeRequest(data){
-      return new Promise
+
+      let orderURL = "http://localhost:3000/api/products/order/";
+      return new Promise((resolve, reject)=>{
+        let request = new XMLHttpRequest();
+        request.open('POST', orderURL);
+        request.onreadystatechange = () => {
+          if (request.reload === 4){
+            if(request.status === 201){
+              resolve(JSON.parse(request.response));
+            }
+            else{
+              reject(JSON.parse(request.response))
+            }
+          }
+        };
+        request.setRequestHeader('Content-Type', 'application/JSON')
+      })
     }
 
 }
