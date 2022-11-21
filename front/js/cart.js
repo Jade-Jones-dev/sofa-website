@@ -205,14 +205,7 @@ function checkUserInput() {
 
 	orderEl.addEventListener("click", ($event)=> {
     $event.preventDefault();
-      const contact = {
-				firstname: firstNameEl.value,
-				lastname: lastNameEl.value,
-				address: addressEl.value,
-				city: cityEl.value,
-				email: emailEl.value,
-				// how to add products
-			};
+     
     if (
 			firstNameEl.value  &&
 			lastNameEl.value  &&
@@ -222,42 +215,46 @@ function checkUserInput() {
 			emailEl.value 
 		) {
       const cartList = get("products");
-			let productList = []
+			let productList = new Array()
       cartList.forEach((product) =>{
         let productID = product.id
         productList.push(productID)
         console.log(productList)
       })
-
+       const contact = {
+					firstname: firstNameEl.value,
+					lastname: lastNameEl.value,
+					address: addressEl.value,
+					city: cityEl.value,
+					email: emailEl.value,
+				};
       const newData = {
         contact, productList
       }
-
       console.log(newData)
-
-      //working to here
-      // submitFormData(newData)
-
       
-
-        //  fetch(``, {
-				// 		method: "POST",
-				// 		body: JSON.stringify(newData),
-				// 		headers: {
-        //       "Accept": "application/json",
-				// 			"content-Type": "application/json",
-				// 		},
-				// 	})
-				// 		.then((res) => res.json())
-				// 		.then((data) => {
-        //       const orderId = data.orderId
-        //       console.log(orderId)
-						  
-				// 		});
-
-
+      const options = {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newData),
+			};
+      fetch("http://localhost:3000/api/products/order", options)
+				.then((data) => {
+					if (!data.ok) {
+						throw Error(data.status);
+					}
+					return data.json();
+				})
+				.then((newData) => {
+					console.log(newData);
+				})
+				.catch((e) => {
+					console.log(e);
+				});
 		} else {
-			console.log("no");
+			alert("you need to fill in your details");
 		}
   })
 }
