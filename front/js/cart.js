@@ -205,6 +205,14 @@ function checkUserInput() {
 
 	orderEl.addEventListener("click", ($event)=> {
     $event.preventDefault();
+      const contact = {
+				firstname: firstNameEl.value,
+				lastname: lastNameEl.value,
+				address: addressEl.value,
+				city: cityEl.value,
+				email: emailEl.value,
+				// how to add products
+			};
     if (
 			firstNameEl.value  &&
 			lastNameEl.value  &&
@@ -213,9 +221,73 @@ function checkUserInput() {
 			cityEl.value  &&
 			emailEl.value 
 		) {
-			console.log("yes");
+      const cartList = get("products");
+			let productList = []
+      cartList.forEach((product) =>{
+        let productID = product.id
+        productList.push(productID)
+        console.log(productList)
+      })
+
+      const newData = {
+        contact, productList
+      }
+
+      console.log(newData)
+
+      //working to here
+      // submitFormData(newData)
+
+      
+
+        //  fetch(``, {
+				// 		method: "POST",
+				// 		body: JSON.stringify(newData),
+				// 		headers: {
+        //       "Accept": "application/json",
+				// 			"content-Type": "application/json",
+				// 		},
+				// 	})
+				// 		.then((res) => res.json())
+				// 		.then((data) => {
+        //       const orderId = data.orderId
+        //       console.log(orderId)
+						  
+				// 		});
+
+
 		} else {
 			console.log("no");
 		}
   })
+}
+
+function makeRequest(data) {
+	return new Promise((resolve, reject) => {
+		let request = new XMLHttpRequest();
+    const api = "http://localhost:3000/api/products";
+		request.open("POST", api + "/order/");
+		request.onreadystatechange = () => {
+			if (request.readyState === 4) {
+				if (request.status === 201) {
+					resolve(JSON.parse(request.response));
+				} else {
+					reject(JSON.parse(request.response));
+				}
+			}
+		};
+		request.setRequestHeader("Content-Type", "application/json");
+		request.send(JSON.stringify(data));
+	});
+}
+
+async function submitFormData(data){
+  try{
+    const requestPromise = makeRequest(data);
+    const response = await requestPromise;
+    const orderEl = document.getElementById("orderId")
+    orderEl.textContent = response.orderId
+  } catch(errorResponse){ 
+    console.log(errorResponse)
+  }
 }
