@@ -222,8 +222,8 @@ function checkUserInput() {
         console.log(productList)
       })
        const contact = {
-					firstname: firstNameEl.value,
-					lastname: lastNameEl.value,
+					firstName: firstNameEl.value,
+					lastName: lastNameEl.value,
 					address: addressEl.value,
 					city: cityEl.value,
 					email: emailEl.value,
@@ -232,7 +232,7 @@ function checkUserInput() {
         contact, productList
       }
       console.log(newData)
-      
+
       const options = {
 				method: "POST",
 				headers: {
@@ -240,7 +240,7 @@ function checkUserInput() {
 				},
 				body: JSON.stringify(newData),
 			};
-      fetch("http://localhost:3000/api/products/order", options)
+      fetch("http://localhost:3000/api/products/order/", options)
 				.then((data) => {
 					if (!data.ok) {
 						throw Error(data.status);
@@ -262,7 +262,7 @@ function checkUserInput() {
 function makeRequest(data) {
 	return new Promise((resolve, reject) => {
 		let request = new XMLHttpRequest();
-    const api = "http://localhost:3000/api/products";
+    const api = "http://localhost:3000/api/products/";
 		request.open("POST", api + "/order/");
 		request.onreadystatechange = () => {
 			if (request.readyState === 4) {
