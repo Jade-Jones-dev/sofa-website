@@ -32,3 +32,10 @@ function allLetter(inputtxt)
      return false;
      }
   }
+
+
+* chane the order function
+* break the validate function down into smaller functions
+* display the order number in the confirmation page
+* write the tests
+* make sure to divide the inputs instead of combining them
