@@ -6,7 +6,6 @@ function price(amount)
 		style: 'currency',
 		currency: 'EUR',
 	});
-
 	return formatter.format(amount)
 }
 

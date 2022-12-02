@@ -23,6 +23,7 @@ fetch("http://localhost:3000/api/products")
 		listenForSubmission();
 	});
 
+// event listener to delete products from cart
 function listenForDeletion(products) {
 	products.forEach((product) => {
 		const el = document.querySelector(
@@ -40,6 +41,7 @@ function listenForDeletion(products) {
 	});
 }
 
+// event listener to update product quantities in cart
 function listenForQtyChange(products) {
 	products.forEach((product) => {
 		const el = document.querySelector(
@@ -148,7 +150,7 @@ function calculateTotalQuantity(list) {
 	totalQuantityEl.innerHTML = totalQuantity;
 }
 
-
+// validating user input
 function checkUserInput() {
 	let firstNameErrorEl = document.getElementById("firstNameErrorMsg");
 	let lastNameErrorEl = document.getElementById("lastNameErrorMsg");
@@ -165,7 +167,7 @@ function checkUserInput() {
 			);
 		} 
 	});
-	// check name
+// check name
 	lastNameEl.addEventListener("input", ($event) => {
 		hideError(lastNameErrorEl);
 		if (!isLastNameValid($event.target.value)) {
@@ -175,15 +177,14 @@ function checkUserInput() {
 			);
 		} 
 	});
-	//check address
+//check address
 	addressEl.addEventListener("input", ($event) => {
-		
 		hideError(addressErrorEl);
 		if (!isAddressValid($event.target.value)) {
 			showError(addressErrorEl, " please include letters and numbers");
 		}
 	});
-	// check city
+// check city
 	cityEl.addEventListener("input", ($event) => {
 		hideError(cityErrorEl);
 		if (!isCityValid($event.target.value)) {
@@ -191,18 +192,16 @@ function checkUserInput() {
 		} 
 	});
 
-	// check email
+// check email
 	emailEl.addEventListener("input", ($event) => {
-		
 		hideError(emailErrorEl)
 		if (!isEmailValid($event.target.value)) {
 			showError(emailErrorEl, " please enter a valid email address");
 		}
 	});
-
-	
 }
 
+// event listener for when form is submitted
 function listenForSubmission(){
 	orderEl.addEventListener("click", ($event) => {
 	$event.preventDefault();
@@ -218,50 +217,48 @@ function listenForSubmission(){
 		return;
 		}
 		{
-		const productIds = get("products").map((a) => a.id);
+	const productIds = get("products").map((a) => a.id);
 		
-		const contact = {
-			firstName: firstNameEl.value,
-			lastName: lastNameEl.value,
-			address: addressEl.value,
-			city: cityEl.value,
-			email: emailEl.value,
-		};
-			//   const newData = {
-			//     contact, productList
-			//   }
-			//   console.log(newData)
+	const contact = {
+		firstName: firstNameEl.value,
+		lastName: lastNameEl.value,
+		address: addressEl.value,
+		city: cityEl.value,
+		email: emailEl.value,
+	};
 
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				contact: contact,
-				products: productIds,
-				}),
-			};
-			fetch("http://localhost:3000/api/products/order/", options)
-				.then((data) => {
-					if (!data.ok) {
-						throw Error(data.status);
-					}
-					return data.json();
+	const options = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			contact: contact,
+			products: productIds,
+			}),
+		};
+		fetch("http://localhost:3000/api/products/order/", options)
+			.then((data) => {
+				if (!data.ok) {
+					throw Error(data.status);
+				}
+				return data.json();
 				})
-				.then((newData) => {
-					console.log(newData);
-					const orderId = newData.orderId;
-					location.href = "confirmation.html?orderId=" + orderId
-				});
+			.then((newData) => {
+				console.log(newData);
+				const orderId = newData.orderId;
+				location.href = "confirmation.html?orderId=" + orderId
+			});
 		}
 	});
 }
 
+// display error message
 function showError(el, message){
 	el.innerText = message
 }
 
+//hide error message
 function hideError(el){
 	el.innerText = ""
 }
@@ -274,6 +271,7 @@ function isFirstNameValid(value){
 	return false;
 }
 
+// check if length of first name correct
 function isLastNameValid(value) {
 	value = value.trim(' ')
 	if (value.length > 3 && value.length < 10) {
@@ -282,6 +280,7 @@ function isLastNameValid(value) {
 	return false;
 }
 
+// check if address contains letters and numbers
 function isAddressValid(value) {
 	value = value.trim(' ');
 	let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
@@ -291,6 +290,7 @@ function isAddressValid(value) {
 	return false;
 }
 
+// check if city is valid
 function isCityValid(value) {
 	value = value.trim(' ');
 	if (value.length > 3 && value.length < 10) {
@@ -299,6 +299,7 @@ function isCityValid(value) {
 	return false;
 }
 
+// check if the email address is a valid email
 function isEmailValid(value) {
 	let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	if (value.match(regex)) {
