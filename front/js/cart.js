@@ -157,48 +157,46 @@ function checkUserInput() {
 	let emailErrorEl = document.getElementById("emailErrorMsg");
 
 	firstNameEl.addEventListener("input", ($event) => {
-		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-			firstNameErrorEl.innerText =
-				"First name must be between 3 and 10 characters";
-		} else {
-			firstNameErrorEl.innerText = "";
-		}
+		hideError(firstNameErrorEl)
+		if (!isFirstNameValid($event.target.value)) {
+			showError(
+				firstNameErrorEl,
+				"First name must be between 3 and 10 characters"
+			);
+		} 
 	});
 	// check name
 	lastNameEl.addEventListener("input", ($event) => {
-		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-		lastNameErrorEl.innerText =
-			"Last name must be between 3 and 10 characters";
-		} else {
-		lastNameErrorEl.innerText = "";
-		}
+		hideError(lastNameErrorEl);
+		if (!isLastNameValid($event.target.value)) {
+			showError(
+				lastNameErrorEl,
+				"Last name must be between 3 and 10 characters"
+			);
+		} 
 	});
-
 	//check address
 	addressEl.addEventListener("input", ($event) => {
-		let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-		if ($event.target.value.match(regex)) {
-			addressErrorEl.innerText = "";
-		} else {
-		addressErrorEl.innerText = " please include letters and numbers";
+		
+		hideError(addressErrorEl);
+		if (!isAddressValid($event.target.value)) {
+			showError(addressErrorEl, " please include letters and numbers");
 		}
 	});
 	// check city
 	cityEl.addEventListener("input", ($event) => {
-		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-		cityErrorEl.innerText = "City must be between 3 and 10 characters";
-		} else {
-		cityErrorEl.innerText = "";
-		}
+		hideError(cityErrorEl);
+		if (!isCityValid($event.target.value)) {
+			showError(cityErrorEl, "City must be between 3 and 10 characters");
+		} 
 	});
 
 	// check email
 	emailEl.addEventListener("input", ($event) => {
-		let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-		if ($event.target.value.match(regex)) {
-		emailErrorEl.innerText = "";
-		} else {
-		emailErrorEl.innerText = " please enter a valid email address";
+		
+		hideError(emailErrorEl)
+		if (!isEmailValid($event.target.value)) {
+			showError(emailErrorEl, " please enter a valid email address");
 		}
 	});
 
@@ -209,26 +207,19 @@ function listenForSubmission(){
 	orderEl.addEventListener("click", ($event) => {
 	$event.preventDefault();
 
-	if (
-		!firstNameEl.value ||
-		!lastNameEl.value ||
-		!firstNameEl.value ||
-		!addressEl.value ||
-		!cityEl.value ||
-		!emailEl.value
-		) {
+	const isFormValid =
+		isFirstNameValid(firstNameEl.value) &&
+		isLastNameValid(lastNameEl.value) &&
+		isCityValid(cityEl.value) &&
+		isAddressValid(addressEl.value) &&
+		isEmailValid(emailEl.value);
+	if (!isFormValid) {
 		alert("you need to fill in your details");
 		return;
 		}
 		{
 		const productIds = get("products").map((a) => a.id);
-			// 		let productList = new Array()
-			//   cartList.forEach((product) =>{
-			//     let productID = product.id
-			//     productList.push(productID)
-			//     console.log(productList)
-			//   })
-			// const products = cartList.map(a => a.id)
+		
 		const contact = {
 			firstName: firstNameEl.value,
 			lastName: lastNameEl.value,
@@ -260,8 +251,59 @@ function listenForSubmission(){
 				})
 				.then((newData) => {
 					console.log(newData);
+					const orderId = newData.orderId;
+					location.href = "confirmation.html?orderId=" + orderId
 				});
 		}
 	});
+}
+
+function showError(el, message){
+	el.innerText = message
+}
+
+function hideError(el){
+	el.innerText = ""
+}
+
+function isFirstNameValid(value){
+	value = value.trim(' ')
+	if (value.length > 3 && value.length < 10){
+		return true;
+	}	
+	return false;
+}
+
+function isLastNameValid(value) {
+	value = value.trim(' ')
+	if (value.length > 3 && value.length < 10) {
+		return true;
+	}
+	return false;
+}
+
+function isAddressValid(value) {
+	value = value.trim(' ');
+	let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+	if (value.match(regex)){
+		return true;
+	}
+	return false;
+}
+
+function isCityValid(value) {
+	value = value.trim(' ');
+	if (value.length > 3 && value.length < 10) {
+		return true;
+	}
+	return false;
+}
+
+function isEmailValid(value) {
+	let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	if (value.match(regex)) {
+		return true;
+	}
+	return false;
 }
 
