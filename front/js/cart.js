@@ -207,84 +207,58 @@ function checkUserInput() {
     $event.preventDefault();
      
     if (
-			firstNameEl.value  &&
-			lastNameEl.value  &&
-			firstNameEl.value &&
-			addressEl.value  &&
-			cityEl.value  &&
-			emailEl.value 
-		) {
-      const cartList = get("products");
-			let productList = new Array()
-      cartList.forEach((product) =>{
-        let productID = product.id
-        productList.push(productID)
-        console.log(productList)
-      })
+		!firstNameEl.value  ||
+		!lastNameEl.value  ||
+		!firstNameEl.value ||
+		!addressEl.value  ||
+		!cityEl.value  ||
+		!emailEl.value 
+		) 
+		{
+		alert("you need to fill in your details");
+		return;
+		}
+		{
+      const productIds = get("products").map((a) => a.id);
+	// 		let productList = new Array()
+    //   cartList.forEach((product) =>{
+    //     let productID = product.id
+    //     productList.push(productID)
+    //     console.log(productList)
+    //   })
+	// const products = cartList.map(a => a.id)
        const contact = {
-					firstName: firstNameEl.value,
-					lastName: lastNameEl.value,
-					address: addressEl.value,
-					city: cityEl.value,
-					email: emailEl.value,
+			firstName: firstNameEl.value,
+			lastName: lastNameEl.value,
+			address: addressEl.value,
+			city: cityEl.value,
+			email: emailEl.value,
 				};
-      const newData = {
-        contact, productList
-      }
-      console.log(newData)
+    //   const newData = {
+    //     contact, productList
+    //   }
+    //   console.log(newData)
 
       const options = {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
+		method: "POST",
+		headers: {
+				"Content-Type": "application/json",
 				},
-				body: JSON.stringify(newData),
+		body: JSON.stringify({
+		contact: contact,
+		products: productIds,
+				}),
 			};
       fetch("http://localhost:3000/api/products/order/", options)
-				.then((data) => {
-					if (!data.ok) {
-						throw Error(data.status);
+		.then((data) => {
+			if (!data.ok) {
+				throw Error(data.status);
 					}
-					return data.json();
+				return data.json();
 				})
-				.then((newData) => {
-					console.log(newData);
-				})
-				.catch((e) => {
-					console.log(e);
-				});
-		} else {
-			alert("you need to fill in your details");
-		}
+			.then((newData) => {
+				console.log(newData);
+			})
+		} 
   })
-}
-
-function makeRequest(data) {
-	return new Promise((resolve, reject) => {
-		let request = new XMLHttpRequest();
-    const api = "http://localhost:3000/api/products/";
-		request.open("POST", api + "/order/");
-		request.onreadystatechange = () => {
-			if (request.readyState === 4) {
-				if (request.status === 201) {
-					resolve(JSON.parse(request.response));
-				} else {
-					reject(JSON.parse(request.response));
-				}
-			}
-		};
-		request.setRequestHeader("Content-Type", "application/json");
-		request.send(JSON.stringify(data));
-	});
-}
-
-async function submitFormData(data){
-  try{
-    const requestPromise = makeRequest(data);
-    const response = await requestPromise;
-    const orderEl = document.getElementById("orderId")
-    orderEl.textContent = response.orderId
-  } catch(errorResponse){ 
-    console.log(errorResponse)
-  }
 }
