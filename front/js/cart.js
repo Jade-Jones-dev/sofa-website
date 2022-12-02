@@ -19,6 +19,8 @@ fetch("http://localhost:3000/api/products")
 		calculateTotalQuantity(products);
 		listenForQtyChange(products);
 		listenForDeletion(products);
+		checkUserInput();
+		listenForSubmission();
 	});
 
 function listenForDeletion(products) {
@@ -63,13 +65,10 @@ function buildCompleteList(cart, allproducts) {
 	cart.forEach((product) => {
 		const item = allproducts.find((a) => a._id === product.id);
 		const a = { ...item };
-
 		a.color = product.color;
 		a.qty = product.qty;
-
 		list.push(a);
 	});
-
 	return list;
 }
 
@@ -149,7 +148,7 @@ function calculateTotalQuantity(list) {
 	totalQuantityEl.innerHTML = totalQuantity;
 }
 
-checkUserInput();
+
 function checkUserInput() {
 	let firstNameErrorEl = document.getElementById("firstNameErrorMsg");
 	let lastNameErrorEl = document.getElementById("lastNameErrorMsg");
@@ -168,10 +167,10 @@ function checkUserInput() {
 	// check name
 	lastNameEl.addEventListener("input", ($event) => {
 		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-			lastNameErrorEl.innerText =
-				"Last name must be between 3 and 10 characters";
+		lastNameErrorEl.innerText =
+			"Last name must be between 3 and 10 characters";
 		} else {
-			lastNameErrorEl.innerText = "";
+		lastNameErrorEl.innerText = "";
 		}
 	});
 
@@ -181,15 +180,15 @@ function checkUserInput() {
 		if ($event.target.value.match(regex)) {
 			addressErrorEl.innerText = "";
 		} else {
-			addressErrorEl.innerText = " please include letters and numbers";
+		addressErrorEl.innerText = " please include letters and numbers";
 		}
 	});
 	// check city
 	cityEl.addEventListener("input", ($event) => {
 		if ($event.target.value.length < 3 || $event.target.value.length > 10) {
-			cityErrorEl.innerText = "City must be between 3 and 10 characters";
+		cityErrorEl.innerText = "City must be between 3 and 10 characters";
 		} else {
-			cityErrorEl.innerText = "";
+		cityErrorEl.innerText = "";
 		}
 	});
 
@@ -197,68 +196,72 @@ function checkUserInput() {
 	emailEl.addEventListener("input", ($event) => {
 		let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if ($event.target.value.match(regex)) {
-			emailErrorEl.innerText = "";
+		emailErrorEl.innerText = "";
 		} else {
-			emailErrorEl.innerText = " please enter a valid email address";
+		emailErrorEl.innerText = " please enter a valid email address";
 		}
 	});
 
-	orderEl.addEventListener("click", ($event)=> {
-    $event.preventDefault();
-     
-    if (
-		!firstNameEl.value  ||
-		!lastNameEl.value  ||
+	
+}
+
+function listenForSubmission(){
+	orderEl.addEventListener("click", ($event) => {
+	$event.preventDefault();
+
+	if (
 		!firstNameEl.value ||
-		!addressEl.value  ||
-		!cityEl.value  ||
-		!emailEl.value 
-		) 
-		{
+		!lastNameEl.value ||
+		!firstNameEl.value ||
+		!addressEl.value ||
+		!cityEl.value ||
+		!emailEl.value
+		) {
 		alert("you need to fill in your details");
 		return;
 		}
 		{
-      const productIds = get("products").map((a) => a.id);
-	// 		let productList = new Array()
-    //   cartList.forEach((product) =>{
-    //     let productID = product.id
-    //     productList.push(productID)
-    //     console.log(productList)
-    //   })
-	// const products = cartList.map(a => a.id)
-       const contact = {
+		const productIds = get("products").map((a) => a.id);
+			// 		let productList = new Array()
+			//   cartList.forEach((product) =>{
+			//     let productID = product.id
+			//     productList.push(productID)
+			//     console.log(productList)
+			//   })
+			// const products = cartList.map(a => a.id)
+		const contact = {
 			firstName: firstNameEl.value,
 			lastName: lastNameEl.value,
 			address: addressEl.value,
 			city: cityEl.value,
 			email: emailEl.value,
-				};
-    //   const newData = {
-    //     contact, productList
-    //   }
-    //   console.log(newData)
+		};
+			//   const newData = {
+			//     contact, productList
+			//   }
+			//   console.log(newData)
 
-      const options = {
-		method: "POST",
-		headers: {
+		const options = {
+			method: "POST",
+			headers: {
 				"Content-Type": "application/json",
-				},
-		body: JSON.stringify({
-		contact: contact,
-		products: productIds,
+			},
+			body: JSON.stringify({
+				contact: contact,
+				products: productIds,
 				}),
 			};
-      fetch("http://localhost:3000/api/products/order/", options)
-		.then((data) => {
-			if (!data.ok) {
-				throw Error(data.status);
+			fetch("http://localhost:3000/api/products/order/", options)
+				.then((data) => {
+					if (!data.ok) {
+						throw Error(data.status);
 					}
-				return data.json();
+					return data.json();
 				})
-			.then((newData) => {
-				console.log(newData);
-			})
-		} 
-  })
+				.then((newData) => {
+					console.log(newData);
+				});
+		}
+	});
 }
+
