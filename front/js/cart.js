@@ -54,6 +54,11 @@ function listenForQtyChange(products) {
 			const a = products.find(
 				(a) => a.id == product._id && a.color == product.color
 			);
+			if (newQty < 1){
+			document.querySelector(
+			`.cart__item[data-id="${product._id}"][data-color="${product.color}"] .deleteItem`)
+			products.splice(a, 1);
+			};
 			a.qty = Number(newQty);
 			store("products", products);
 			location.reload();
@@ -206,11 +211,7 @@ function checkUserInput() {
 function listenForSubmission(){
 	orderEl.addEventListener("click", ($event) => {
 	$event.preventDefault();
-	// checks if there are items in the basket to proceed with the order
-	if( !totalQuantity.value >=1){
-		alert("Your order must contain at least one item. Update the quantity in your basket to proceed with your order.")
-		return;
-	}
+
 	const isFormValid =
 		isFirstNameValid(firstNameEl.value) &&
 		isLastNameValid(lastNameEl.value) &&
