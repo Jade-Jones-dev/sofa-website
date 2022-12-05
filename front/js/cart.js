@@ -55,6 +55,7 @@ function listenForQtyChange(products) {
 			const a = products.find(
 				(a) => a.id == product._id && a.color == product.color
 			);
+			// checking if the new quantity is less than 1
 			if(newQty < 1){
 				const index = products.findIndex(
 					(a) => a.id == product._id && a.color == product.color
@@ -149,7 +150,6 @@ function calculateTotal(list) {
 	});
 	const totalPriceEl = document.getElementById("totalPrice");
 	totalPriceEl.innerHTML = price(total);
-	const totalPrice = price
 }
 
 // calculates the number of items in the order
@@ -219,16 +219,17 @@ function checkUserInput() {
 function listenForSubmission(){
 	orderEl.addEventListener("click", ($event) => {
 	$event.preventDefault();
-	
-	
+	// const isCartEmpty = !has("products");
 	const isFormValid =
 		isFirstNameValid(firstNameEl.value) &&
 		isLastNameValid(lastNameEl.value) &&
 		isCityValid(cityEl.value) &&
 		isAddressValid(addressEl.value) &&
-		isEmailValid(emailEl.value) &&
-		totalPrice.value > 0
-	 if (!isFormValid) {
+		isEmailValid(emailEl.value)
+
+	 const products = get("products");
+	 
+	 if (!isFormValid || products.length < 1) {
 		alert("Please check your details and that you have items in your cart");
 		return;
 	}
