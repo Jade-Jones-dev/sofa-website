@@ -47,6 +47,7 @@ function listenForQtyChange(products) {
 		const el = document.querySelector(
 			`.cart__item[data-id="${product._id}"][data-color="${product.color}"] .itemQuantity`
 		);
+
 		el.addEventListener("input", (e) => {
 			const newQty = e.target.value;
 			const products = get("products");
@@ -205,7 +206,11 @@ function checkUserInput() {
 function listenForSubmission(){
 	orderEl.addEventListener("click", ($event) => {
 	$event.preventDefault();
-
+	// checks if there are items in the basket to proceed with the order
+	if( !totalQuantity.value >=1){
+		alert("Your order must contain at least one item. Update the quantity in your basket to proceed with your order.")
+		return;
+	}
 	const isFormValid =
 		isFirstNameValid(firstNameEl.value) &&
 		isLastNameValid(lastNameEl.value) &&
