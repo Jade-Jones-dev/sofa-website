@@ -4,6 +4,7 @@ const addressEl = document.getElementById("address");
 const cityEl = document.getElementById("city");
 const emailEl = document.getElementById("email");
 const orderEl = document.getElementById("order");
+const itemQuantityEl = document.getElementsByClassName(".itemQuantity");
 
 //fetch data from the backend api
 fetch("http://localhost:3000/api/products")
@@ -54,12 +55,16 @@ function listenForQtyChange(products) {
 			const a = products.find(
 				(a) => a.id == product._id && a.color == product.color
 			);
-			if (newQty < 1){
-			document.querySelector(
-			`.cart__item[data-id="${product._id}"][data-color="${product.color}"] .deleteItem`)
-			products.splice(a, 1);
-			};
+			if(newQty < 1){
+				const index = products.findIndex(
+					(a) => a.id == product._id && a.color == product.color
+				);
+				products.splice(index, 1);
+			}
+			else{
 			a.qty = Number(newQty);
+			}
+			
 			store("products", products);
 			location.reload();
 		});
@@ -144,6 +149,7 @@ function calculateTotal(list) {
 	});
 	const totalPriceEl = document.getElementById("totalPrice");
 	totalPriceEl.innerHTML = price(total);
+	const totalPrice = price
 }
 
 // calculates the number of items in the order
@@ -205,23 +211,27 @@ function checkUserInput() {
 			showError(emailErrorEl, " please enter a valid email address");
 		}
 	});
+
+	
 }
 
 // event listener for when form is submitted
 function listenForSubmission(){
 	orderEl.addEventListener("click", ($event) => {
 	$event.preventDefault();
-
+	
+	
 	const isFormValid =
 		isFirstNameValid(firstNameEl.value) &&
 		isLastNameValid(lastNameEl.value) &&
 		isCityValid(cityEl.value) &&
 		isAddressValid(addressEl.value) &&
-		isEmailValid(emailEl.value);
-	if (!isFormValid) {
-		alert("you need to fill in your details");
+		isEmailValid(emailEl.value) &&
+		totalPrice.value > 0
+	 if (!isFormValid) {
+		alert("Please check your details and that you have items in your cart");
 		return;
-		}
+	}
 		{
 	const productIds = get("products").map((a) => a.id);
 		
@@ -313,4 +323,5 @@ function isEmailValid(value) {
 	}
 	return false;
 }
+
 
