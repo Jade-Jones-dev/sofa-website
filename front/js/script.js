@@ -1,5 +1,5 @@
 //fetch data from the backend api
-fetch('http://sofa-backend.onrender.com/api/products')
+fetch('https://sofa-backend.onrender.com/api/products')
 .then(data => {
     return data.json();
 })
