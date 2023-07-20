@@ -12,8 +12,7 @@ See the live deployment at https://sofasite.netlify.app/
 2. [Features](#features)
 3. [Usage](#usage)
 4. [Contributing](#contributing)
-5. [License](#license)
-6. [Contact](#contact)
+5. [Contact](#contact)
 
 ## Getting Started
 
@@ -21,8 +20,8 @@ See the live deployment at https://sofasite.netlify.app/
 
 Before running this project locally, ensure you have the following prerequisites installed on your system:
 
-- Node.js (at least version 12)
-- NPM (Node Package Manager) or Yarn
+- Node.js
+- NPM or Yarn
 
 ### Installation
 
@@ -53,10 +52,9 @@ yarn install
 
 This website project comes with several features, including:
 
-- Home Page: An introduction to the company and its core values.
-- Sofa Catalog: A page displaying the different sofa models available, each with details and images.
+- Home Page: A page displaying the different sofa models available, each with details and images.
 - Product Details: A page providing in-depth information about a specific sofa model.
-- Contact Form: A contact page where users can get in touch with the company.
+- Shopping cart: Cart where customers are able to order their desired sofas
 - Responsive Design: The website is optimized for various screen sizes and devices, ensuring a seamless experience across desktops, tablets, and mobile devices.
 
 ## Usage
@@ -77,22 +75,6 @@ yarn dev
 
 This will start a development server, and you can access the website at `http://localhost:3000` in your web browser.
 
-To build the website for production, run:
-
-Using NPM:
-
-```bash
-npm run build
-```
-
-Using Yarn:
-
-```bash
-yarn build
-```
-
-The production-ready files will be available in the `out` directory.
-
 ## Contributing
 
 We welcome contributions from the community to enhance this project. If you would like to contribute, please follow these steps:
@@ -104,10 +86,6 @@ We welcome contributions from the community to enhance this project. If you woul
 5. Submit a pull request to the main repository.
 
 Please ensure your code follows the project's coding standards and includes appropriate documentation where necessary.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute the code as per the terms of this license.
 
 ## Contact
 
