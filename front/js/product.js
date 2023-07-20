@@ -3,7 +3,7 @@ const addButton = document.getElementById("addToCart");
 let product;
 
 //fetch data from the backend api
-fetch("http://localhost:3000/api/products/" + id)
+fetch("https://sofa-backend.onrender.com/api/products/" + id)
 	.then((data) => data.json())
 	.then((product) => {
 		display(product);
