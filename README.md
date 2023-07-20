@@ -2,7 +2,7 @@
 
 Welcome to the Sofa Website project repository! This project aims to create a modern and user-friendly website for a furniture company, showcasing their range of sofas. The website is designed to provide an engaging and seamless experience for potential customers to explore the different sofa options available and learn more about the company.
 
-View the live deployment at https://sofasite.netlify.app/
+See the live deployment at https://sofasite.netlify.app/
 
 ## Table of Contents
 
@@ -30,21 +30,24 @@ To set up the project, follow these steps:
 
 1. Clone the repository to your local machine:
 
+```bash
 git clone https://github.com/Jade-Jones-dev/sofa-website.git
 cd sofa-website
-
+```
 
 2. Install the required dependencies:
 
 Using NPM:
 
+```bash
 npm install
-
+```
 
 Using Yarn:
 
+```bash
 yarn install
-
+```
 
 ## Features
 
@@ -62,13 +65,15 @@ To run the website locally in development mode, use the following command:
 
 Using NPM:
 
+```bash
 npm run dev
-
+```
 
 Using Yarn:
 
+```bash
 yarn dev
-
+```
 
 This will start a development server, and you can access the website at `http://localhost:3000` in your web browser.
 
@@ -76,13 +81,17 @@ To build the website for production, run:
 
 Using NPM:
 
-
+```bash
 npm run build
-
+```
 
 Using Yarn:
 
+```bash
 yarn build
+```
+
+The production-ready files will be available in the `out` directory.
 
 ## Contributing
 
@@ -107,4 +116,4 @@ If you have any questions, feedback, or suggestions, please feel free to contact
 - Name: Jade Jones
 - GitHub: [@Jade-Jones-dev](https://github.com/Jade-Jones-dev)
 
-Thank you for your interest in the Sofa Website project
+Thank you for your interest in the Sofa Website project! We hope you find it useful and look forward to your contributions.
