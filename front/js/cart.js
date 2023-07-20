@@ -7,7 +7,7 @@ const orderEl = document.getElementById("order");
 const itemQuantityEl = document.getElementsByClassName(".itemQuantity");
 
 //fetch data from the backend api
-fetch("http://localhost:3000/api/products")
+fetch("https://sofa-backend.onrender.com/api/products")
 	.then((data) => {
 		return data.json();
 	})
